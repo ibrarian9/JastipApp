@@ -71,7 +71,7 @@ class ProfileActivity : AppCompatActivity() {
                 startActivity( Intent(this, MainActivity::class.java))
                 finish()
             } else if (itemId == R.id.profile){
-                TODO()
+                return@setOnItemSelectedListener true
             }
             false
         }

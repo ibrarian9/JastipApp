@@ -4,7 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.View
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import com.app.jastipapp.models.UserDetails
@@ -18,6 +20,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var pass: EditText
     private lateinit var submit: TextView
     private lateinit var signIn: TextView
+    private lateinit var pb: ProgressBar
     private lateinit var mAuth: FirebaseAuth
 
     override fun onStart() {
@@ -39,6 +42,7 @@ class RegisterActivity : AppCompatActivity() {
         pass = findViewById(R.id.pass)
         submit = findViewById(R.id.submit)
         signIn = findViewById(R.id.signIn)
+        pb = findViewById(R.id.pb)
         mAuth = FirebaseAuth.getInstance()
 
         signIn.setOnClickListener{
@@ -46,6 +50,7 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         submit.setOnClickListener{
+            pb.visibility = View.VISIBLE
             val dataNama = nama.text.toString()
             val dataEmail = email.text.toString()
             val dataPass = pass.text.toString()
@@ -68,17 +73,21 @@ class RegisterActivity : AppCompatActivity() {
                             val db = FirebaseDatabase.getInstance().getReference("Users")
                             db.child(uid).setValue(userDetail).addOnCompleteListener{
                                 if (task.isSuccessful){
+                                    pb.visibility = View.GONE
                                     val i = Intent(this, MainActivity::class.java)
                                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                                     startActivity(i)
                                     finish()
                                 } else {
                                     Toast.makeText(this, "Account Registered Failed", Toast.LENGTH_SHORT).show()
+                                    pb.visibility = View.GONE
                                 }
                             }
                         } else {
                             Toast.makeText(this, "Account Registered Failed", Toast.LENGTH_SHORT).show()
+                            pb.visibility = View.GONE
                         }
+                        pb.visibility = View.GONE
                     }
             }
         }

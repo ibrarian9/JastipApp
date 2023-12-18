@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.SearchView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var rv: RecyclerView
     private lateinit var mainAdapter: MainAdapter
     private lateinit var navbar: BottomNavigationView
+    private lateinit var pb: ProgressBar
     var listData: MutableList<DataJastip> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,10 +33,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         search = findViewById(R.id.searchView)
+        pb = findViewById(R.id.pb)
         mainAdapter = MainAdapter(listData, this)
         rv = findViewById(R.id.rv)
         rv.layoutManager = GridLayoutManager(this, 2)
         rv.adapter = mainAdapter
+
+        pb.visibility = View.VISIBLE
 
         val query = FirebaseDatabase.getInstance().getReference("Data")
         query.addValueEventListener(object : ValueEventListener {
@@ -45,12 +50,14 @@ class MainActivity : AppCompatActivity() {
                    val dataJastip = postData.getValue(DataJastip::class.java)
                    if (dataJastip != null) {
                        listData.add(dataJastip)
+                       pb.visibility = View.GONE
                    }
                    mainAdapter.notifyDataSetChanged()
+                   pb.visibility = View.GONE
                }
             }
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                pb.visibility = View.GONE
             }
         })
 
@@ -69,7 +76,7 @@ class MainActivity : AppCompatActivity() {
         navbar.setOnItemSelectedListener {
             val itemId = it.itemId
             if (itemId == R.id.home){
-                TODO()
+                return@setOnItemSelectedListener true
             } else if (itemId == R.id.profile){
                 startActivity( Intent(this, ProfileActivity::class.java))
                 finish()
