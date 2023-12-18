@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "170705277760",
+    "project_id": "jastip-app-e647a",
+    "storage_bucket": "jastip-app-e647a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:170705277760:android:f415d27a35fe36804960a5",
+        "android_client_info": {
+          "package_name": "com.app.jastipapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDi6Oo79nAG_0c8hev8ou4F-AizxjUcIFE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
