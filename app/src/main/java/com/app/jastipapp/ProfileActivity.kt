@@ -72,6 +72,9 @@ class ProfileActivity : AppCompatActivity() {
                 finish()
             } else if (itemId == R.id.profile){
                 return@setOnItemSelectedListener true
+            } else if (itemId == R.id.note){
+                startActivity( Intent(this, CatatanActivity::class.java))
+                finish()
             }
             false
         }

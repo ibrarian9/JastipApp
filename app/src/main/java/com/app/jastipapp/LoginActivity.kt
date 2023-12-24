@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isVisible
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
@@ -48,7 +49,6 @@ class LoginActivity : AppCompatActivity() {
 
         login.setOnClickListener{
 
-            pb.visibility = View.VISIBLE
             val dataEmail = email.text.toString()
             val dataPass = pass.text.toString()
 
@@ -57,6 +57,11 @@ class LoginActivity : AppCompatActivity() {
             } else if (TextUtils.isEmpty(dataPass)){
                 Toast.makeText(this, "Mohon Kolom Password di Isi...", Toast.LENGTH_SHORT).show()
             } else {
+
+                if (!pb.isVisible){
+                    pb.visibility = View.VISIBLE
+                }
+
                mAuth.signInWithEmailAndPassword(dataEmail, dataPass)
                    .addOnCompleteListener { t ->
                        if (t.isSuccessful) {
@@ -68,7 +73,9 @@ class LoginActivity : AppCompatActivity() {
                            Toast.makeText(this, "Login Gagal", Toast.LENGTH_SHORT).show()
                        }
                    }
-                pb.visibility = View.GONE
+                if (pb.isVisible){
+                    pb.visibility = View.GONE
+                }
             }
         }
     }

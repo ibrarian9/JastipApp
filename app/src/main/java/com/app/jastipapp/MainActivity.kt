@@ -80,6 +80,9 @@ class MainActivity : AppCompatActivity() {
             } else if (itemId == R.id.profile){
                 startActivity( Intent(this, ProfileActivity::class.java))
                 finish()
+            } else if (itemId == R.id.note){
+                startActivity( Intent(this, CatatanActivity::class.java))
+                finish()
             }
             false
         }
