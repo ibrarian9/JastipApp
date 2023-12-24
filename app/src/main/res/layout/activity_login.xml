@@ -73,6 +73,7 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             android:background="@color/white"
+            android:indeterminate="true"
             android:indeterminateTint="@color/black"
             android:indeterminateTintMode="src_in"/>
 
